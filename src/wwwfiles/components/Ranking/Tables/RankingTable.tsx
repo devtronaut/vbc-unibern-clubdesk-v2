@@ -22,24 +22,26 @@ export const RankingTable = (teamProps: TeamIdProps) => {
   const headings = ['Rang', 'Team', 'Siege', 'Niederlagen', 'Punkte'];
 
   return (
-    <table className='w-4/5'>
-      <thead>
-        <tr className='bg-red-700 text-white'>
+    <div className='w-4/5 overflow-hidden rounded-md'>
+      <table className='w-full'>
+        <thead>
+          <tr className='bg-red-700 text-white'>
+            {
+              headings.map((headings: string) => {
+                return <th>{headings}</th>;
+              })
+            }
+          </tr>
+        </thead>
+        <tbody>
           {
-            headings.map((headings: string) => {
-              return <th className='first:rounded-tl-md last:rounded-tr-md'>{headings}</th>;
+            ranking.teams.map((team: TeamRankingSchema) => {
+              return (<TableRow {...team} />)
             })
           }
-        </tr>
-      </thead>
-      <tbody>
-        {
-          ranking.teams.map((team: TeamRankingSchema) => {
-            return (<TableRow {...team} />)
-          })
-        }
-      </tbody>
-    </table >);
+        </tbody>
+      </table >
+    </div>);
 }
 
 const TableRow = (props: TeamRankingSchema) => {
