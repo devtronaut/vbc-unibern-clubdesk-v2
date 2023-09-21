@@ -22,12 +22,12 @@ export const RankingTable = (teamProps: TeamIdProps) => {
   const headings = ['Rang', 'Team', 'Siege', 'Niederlagen', 'Punkte'];
 
   return (
-    <table>
+    <table className='w-4/5'>
       <thead>
-        <tr className='bg-blue-900 text-white'>
+        <tr className='bg-red-700 text-white'>
           {
             headings.map((headings: string) => {
-              return <th>{headings}</th>;
+              return <th className='first:rounded-tl-md last:rounded-tr-md'>{headings}</th>;
             })
           }
         </tr>
@@ -50,12 +50,12 @@ const TableRow = (props: TeamRankingSchema) => {
   })
 
   return (
-    <tr>
-      <td className='rank'>{team.rank}</td>
-      <td className='teamCaption'>{team.teamCaption}</td>
-      <td className='wins'>{team.wins}</td>
-      <td className='defeats'>{team.defeats}</td>
-      <td className='points'>{team.points}</td>
+    <tr className={`border-y-2 hover:bg-slate-100 even:bg-slate-50 first:border-t-0 last:border-b-0 ${team.teamCaption?.includes('Uni Bern') && 'bg-red-100 font-bold hover:bg-red-200'}`}>
+      <td className='text-center'>{team.rank}</td>
+      <td>{team.teamCaption}</td>
+      <td className='text-center'>{team.wins}</td>
+      <td className='text-center'>{team.defeats}</td>
+      <td className='text-center'>{team.points}</td>
     </tr>
   )
 }
