@@ -24,7 +24,7 @@ export const RankingTable = (teamProps: TeamIdProps) => {
   return (
     <table>
       <thead>
-        <tr>
+        <tr className='bg-blue-900 text-white'>
           {
             headings.map((headings: string) => {
               return <th>{headings}</th>;

@@ -21,16 +21,8 @@ module.exports = {
       {
           // should use style-loader and css-loader for all css files
           test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
-      },
-      {
-        // v5 supports image loaders out of box
-        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-        type: 'asset/inline',
+          include: path.resolve(__dirname, '..', './src'),
+          use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
     ],
   },
@@ -38,7 +30,7 @@ module.exports = {
         path: path.resolve(__dirname, '..', './dist'),
         // filename: '[name].[chunkhash].js',
         // publicPath: 'wwwfiles',
-        filename: '[name].js',
+        filename: 'main.js',
     },
   plugins: [
       new HtmlWebpackPlugin({
