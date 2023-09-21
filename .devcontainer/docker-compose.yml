@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  vbc-unibern-clubdesk-devcontainer:
+    container_name: vbc-unibern-clubdesk-devcontainer
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_VARIANT: 1-20-bullseye
+    volumes:
+      - ..:/workspace:cached
+      - ~/.ssh:/home/node/.ssh:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sleep infinity
+    user: node
+    env_file:
+      - ./devcontainer.env
