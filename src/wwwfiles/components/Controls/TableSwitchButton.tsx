@@ -5,6 +5,6 @@ type TableSwitchButtonProps = {
 
 export const TableSwitchButton = (props: TableSwitchButtonProps) => {
   return (
-    <button onClick={props.handler} className='tw-px-4 tw-py-1 tw-text-red-700 tw-border-2 tw-border-red-700 tw-duration-500 tw-hover:tw-bg-red-700 tw-hover:tw-text-white tw-first:tw-rounded-l-full tw-last:tw-rounded-r-full'>{props.text}</button>
+    <button onClick={props.handler} className='tw-bg-white tw-px-4 tw-py-1 tw-text-col-button tw-border-solid tw-border-2 tw-border-col-button tw-duration-500 hover:tw-bg-col-button hover:tw-text-white first:tw-rounded-l-full last:tw-rounded-r-full'>{props.text}</button>
   )
 }

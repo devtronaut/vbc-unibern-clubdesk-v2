@@ -35,12 +35,12 @@ export const App = (teamProps: TeamProps) => {
   return (
     <div className='tailwind-parent'>
       <div className='tw-w-full tw-flext tw-flex-col tw-items-center tw-my-8'>
+        <div className='tw-mb-3 tw-w-fit'>
+          {!isRanking && <TableSwitchButton text={'Tabelle'} handler={rankingButtonClicked} />}
+          {!isResults && <TableSwitchButton text={'Resultate'} handler={resultsButtonClicked} />}
+          {!isUpcomingGames && <TableSwitchButton text={'Nächste Spiele'} handler={upcomingGamesButtonClicked} />}
+        </div>
         {isRanking && <RankingTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
-        {/* <div className='mt-3'>
-        {!isRanking && <TableSwitchButton text={'Tabelle'} handler={rankingButtonClicked} />}
-        {!isResults && <TableSwitchButton text={'Resultate'} handler={resultsButtonClicked} />}
-        {!isUpcomingGames && <TableSwitchButton text={'Nächste Spiele'} handler={upcomingGamesButtonClicked} />}
-      </div> */}
       </div>
     </div>
   )

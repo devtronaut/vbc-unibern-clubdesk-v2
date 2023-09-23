@@ -10,7 +10,12 @@ module.exports = {
       'phone': {'max': '450px'},
       'tablet': {'max': '640px'}
     },
-    extend: {},
+    extend: {
+      colors: {
+        'col-table-header': 'rgba(51,51,51,1.0)',
+        'col-button': 'rgba(255,0,0,1.0)'
+      }
+    },
   },
   variants: {
     extend: {
