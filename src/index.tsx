@@ -7,4 +7,4 @@ const rootDiv = document.createElement('div');
 rootDiv.id = 'root';
 refNode?.before(rootDiv);
 
-render(<App teamId={window.teamId} />, document.getElementById('root'));
+render(<App teamId={window.teamId} teamName={window.teamName} />, document.getElementById('root'));

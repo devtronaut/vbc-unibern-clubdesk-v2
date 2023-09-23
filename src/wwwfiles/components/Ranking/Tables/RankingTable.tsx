@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import RankingsService from '../../../services/rankings/RankingsService';
 import { RankingSchema, TeamRankingSchema } from '../../../common/types/RankingByTeam.type';
-import { TeamIdProps } from '../../../App';
+import { TeamProps } from '../../../App';
 
-export const RankingTable = (teamProps: TeamIdProps) => {
+export const RankingTable = (teamProps: TeamProps) => {
   const [isLoading, setLoading] = useState(true);
   const [ranking, setRanking] = useState({} as RankingSchema);
+  const [teamName, setTeamName] = useState("");
 
   useEffect(() => {
     RankingsService.fetchRankings(teamProps.teamId)
@@ -13,24 +14,24 @@ export const RankingTable = (teamProps: TeamIdProps) => {
         setRanking(ranking);
         setLoading(false);
       })
+
+    setTeamName(teamProps.teamName);
   }, [])
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
-  const headings = ['RANG', 'TEAM', 'SIEGE', 'NIEDERLAGEN', 'PUNKTE'];
-
   return (
-    <div className='w-full overflow-hidden rounded-md'>
-      <table className='w-full'>
+    <div className='tw-w-full tw-overflow-hidden tw-rounded-md'>
+      <table className='tw-w-full tablet:tw-table-fixed phone:tw-table-auto'>
         <thead>
-          <tr className='bg-red-700 text-white'>
-            {
-              headings.map((headings: string) => {
-                return <th className='text-center'>{headings}</th>;
-              })
-            }
+          <tr className='tw-bg-red-700 tw-text-white'>
+            <th className='tw-text-center tw-py-1'>RANG</th>
+            <th className='tw-text-center tw-py-1'>TEAM</th>
+            <th className='tw-text-center tw-py-1 phone:tw-hidden'>SIEGE</th>
+            <th className='tw-text-center tw-py-1 phone:tw-hidden tablet:tw-overflow-hidden'>NIEDERLAGEN</th>
+            <th className='tw-text-center tw-py-1'>PUNKTE</th>
           </tr>
         </thead>
         <tbody>
@@ -52,22 +53,22 @@ const TableRow = (props: TeamRankingSchema) => {
   })
 
   return (
-    team.teamCaption?.includes('Uni Bern') ?
+    team.teamCaption?.includes(teamName) ?
       (
-        <tr className={'border-y-2 font-black even:bg-slate-50 first:border-t-0 last:border-b-0 bg-red-100 hover:bg-red-200'}>
-          <td className='text-center'><strong>{team.rank}</strong></td>
-          <td><strong>{team.teamCaption}</strong></td>
-          <td className='text-center'><strong>{team.wins}</strong></td>
-          <td className='text-center'><strong>{team.defeats}</strong></td>
-          <td className='text-center'><strong>{team.points}</strong></td>
+        <tr className={'tw-border-y-2 tw-font-bold tw-even:tw-bg-slate-50 tw-first:tw-border-t-0 tw-last:tw-border-b-0 tw-bg-red-100 tw-duration-200 tw-hover:tw-bg-red-200'}>
+          <td className='tw-text-center tw-py-0.5'><strong>{team.rank}</strong></td>
+          <td className='tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis'><strong>{team.teamCaption}</strong></td>
+          <td className='tw-text-center tw-py-0.5 phone:tw-hidden'><strong>{team.wins}</strong></td>
+          <td className='tw-text-center tw-py-0.5 phone:tw-hidden'><strong>{team.defeats}</strong></td>
+          <td className='tw-text-center tw-py-0.5'><strong>{team.points}</strong></td>
         </tr>
       ) : (
-        <tr className={`border-y-2 hover:bg-slate-100 even:bg-slate-50 first:border-t-0 last:border-b-0`}>
-          <td className='text-center'>{team.rank}</td>
-          <td>{team.teamCaption}</td>
-          <td className='text-center'>{team.wins}</td>
-          <td className='text-center'>{team.defeats}</td>
-          <td className='text-center'>{team.points}</td>
+        <tr className={`tw-border-y-2 tw-duration-200 tw-hover:tw-bg-slate-100 tw-even:tw-bg-slate-50 tw-first:border-t-0 tw-last:border-b-0`}>
+          <td className='tw-text-center tw-py-0.5'>{team.rank}</td>
+          <td className='tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis'>{team.teamCaption}</td>
+          <td className='tw-text-center tw-py-0.5 phone:tw-hidden'>{team.wins}</td>
+          <td className='tw-text-center tw-py-0.5 phone:tw-hidden'>{team.defeats}</td>
+          <td className='tw-text-center tw-py-0.5'>{team.points}</td>
         </tr>
       )
   )

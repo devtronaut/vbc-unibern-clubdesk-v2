@@ -9,7 +9,6 @@ class FetchUtil {
     });
 
     const rankings = await rankingsData.json() as T;
-    console.log(rankings);
     return rankings;
   }
 }
