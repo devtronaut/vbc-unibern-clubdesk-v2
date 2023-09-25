@@ -28,3 +28,7 @@ export type RankingSchema = {
   teams: TeamRankingSchema[],
   createdAt: string
 }
+
+export type RankingByTeamResponse = {
+  message: RankingSchema
+}
