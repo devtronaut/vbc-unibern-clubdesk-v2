@@ -5,12 +5,12 @@ module.exports = {
     mode: "production",
     devtool: "source-map",
     output: {
-        path: path.resolve(__dirname, '..', './dist-prod'),
-        filename: '[name].js',
+        path: path.resolve(__dirname, '..', './dist-test'),
+        filename: 'test.js',
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.name': JSON.stringify('prod')
+            'process.env.name': JSON.stringify('test')
         })
     ]
 }
