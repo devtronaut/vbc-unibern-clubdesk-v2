@@ -7,3 +7,5 @@ class UpcomingGamesService {
     return upcomingGames.message;
   }
 }
+
+export default new UpcomingGamesService();

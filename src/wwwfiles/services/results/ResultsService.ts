@@ -7,3 +7,5 @@ class ResultsService {
     return results.message;
   }
 }
+
+export default new ResultsService();
