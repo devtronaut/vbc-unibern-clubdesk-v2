@@ -7,7 +7,7 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     screens: {
-      'phone': {'max': '450px'},
+      'phone': {'max': '550px'},
       'tablet': {'max': '640px'}
     },
     extend: {
