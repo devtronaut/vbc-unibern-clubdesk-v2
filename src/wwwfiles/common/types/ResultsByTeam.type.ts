@@ -1,10 +1,10 @@
-type ResultTeamSchema = {
+export type ResultTeamSchema = {
   caption: string,
   setsWon: number,
   sets: number[]
 }
 
-type ResultsSchema = {
+export type ResultsSchema = {
   id: string,
   teamId: number,
   gameId: number,
@@ -18,8 +18,4 @@ export type ResultPerTeamSchema = {
   teamId: number,
   createdAt: string,
   results: ResultsSchema[]
-}
-
-export type ResultPerTeamResponse = {
-  message: ResultPerTeamSchema
 }

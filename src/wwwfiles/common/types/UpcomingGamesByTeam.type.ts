@@ -1,6 +1,6 @@
 import { GameType } from '../enums/GameType.enum'
 
-type LocationSchema = {
+export type LocationSchema = {
   caption: string,
   street: string,
   number: string,
@@ -9,7 +9,7 @@ type LocationSchema = {
   plusCode: string
 }
 
-type UpcomingGamesSchema = {
+export type UpcomingGamesSchema = {
   id: string,
   teamId: number,
   gameId: number,
@@ -24,8 +24,4 @@ export type UpcomingGamesPerTeamSchema = {
   teamId: number,
   createdAt: string,
   upcomingGames: UpcomingGamesSchema[]
-}
-
-export type UpcomingGamesPerTeamResponse = {
-  message: UpcomingGamesPerTeamSchema
 }

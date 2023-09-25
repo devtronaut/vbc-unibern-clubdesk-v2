@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { RankingTable } from './components/Ranking/Tables/RankingTable'
 import { TableSwitchButton } from './components/Controls/TableSwitchButton'
 import { UpcomingGamesTable } from './components/Ranking/Tables/UpcomingGamesTable'
+import { ResultsTable } from './components/Ranking/Tables/ResultsTable'
 
 export type TeamProps = {
   teamId: number,
@@ -9,8 +10,8 @@ export type TeamProps = {
 }
 
 export const App = (teamProps: TeamProps) => {
-  const [isRanking, setRanking] = useState(true);
-  const [isResults, setResults] = useState(false);
+  const [isRanking, setRanking] = useState(false);
+  const [isResults, setResults] = useState(true);
   const [isUpcomingGames, setUpcomingGames] = useState(false);
 
   useEffect(() => { }, [isRanking, isResults, isUpcomingGames]);
@@ -41,8 +42,12 @@ export const App = (teamProps: TeamProps) => {
           {!isResults && <TableSwitchButton text={'Resultate'} handler={resultsButtonClicked} />}
           {!isUpcomingGames && <TableSwitchButton text={'Nächste Spiele'} handler={upcomingGamesButtonClicked} />}
         </div>
-        {isRanking && <RankingTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
-        {isUpcomingGames && <UpcomingGamesTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
+
+        <div className='tw-w-full tw-rounded-md tw-h-[550px] tw-overflow-y-auto'>
+          {isRanking && <RankingTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
+          {isUpcomingGames && <UpcomingGamesTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
+          {isResults && <ResultsTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
+        </div>
       </div>
     </div>
   )
