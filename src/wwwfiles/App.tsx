@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { RankingTable } from './components/Ranking/Tables/RankingTable'
 import { TableSwitchButton } from './components/Controls/TableSwitchButton'
+import { UpcomingGamesTable } from './components/Ranking/Tables/UpcomingGamesTable'
+import { ResultsTable } from './components/Ranking/Tables/ResultsTable'
 
 export type TeamProps = {
   teamId: number,
@@ -8,9 +10,9 @@ export type TeamProps = {
 }
 
 export const App = (teamProps: TeamProps) => {
-  const [isRanking, setRanking] = useState(true);
+  const [isRanking, setRanking] = useState(false);
   const [isResults, setResults] = useState(false);
-  const [isUpcomingGames, setUpcomingGames] = useState(false);
+  const [isUpcomingGames, setUpcomingGames] = useState(true);
 
   useEffect(() => { }, [isRanking, isResults, isUpcomingGames]);
 
@@ -35,12 +37,17 @@ export const App = (teamProps: TeamProps) => {
   return (
     <div className='tailwind-parent'>
       <div className='tw-w-full tw-flext tw-flex-col tw-items-center tw-my-8'>
-        <div className='tw-mb-3 tw-w-fit'>
+        <div className='tw-mb-3 tw-w-fit tw-space-x-2'>
           {!isRanking && <TableSwitchButton text={'Tabelle'} handler={rankingButtonClicked} />}
           {!isResults && <TableSwitchButton text={'Resultate'} handler={resultsButtonClicked} />}
           {!isUpcomingGames && <TableSwitchButton text={'Nächste Spiele'} handler={upcomingGamesButtonClicked} />}
         </div>
-        {isRanking && <RankingTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
+
+        <div className='tw-w-full tw-rounded-md tw-max-h-[550px] tw-overflow-y-auto tw-shadow'>
+          {isRanking && <RankingTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
+          {isUpcomingGames && <UpcomingGamesTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
+          {isResults && <ResultsTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
+        </div>
       </div>
     </div>
   )

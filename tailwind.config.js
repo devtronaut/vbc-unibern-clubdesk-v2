@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  important: true,
   prefix: 'tw-',
   corePlugins: {
     preflight: false,
@@ -7,8 +8,8 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     screens: {
-      'phone': {'max': '450px'},
-      'tablet': {'max': '640px'}
+      'phone': {'max': '550px'},
+      'tablet': {'max': '680px'},
     },
     extend: {
       colors: {
