@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import RankingsService from '../../../services/rankings/RankingsService';
-import { RankingSchema, TeamRankingSchema } from '../../../common/types/RankingByTeam.type';
-import { TeamProps } from '../../../App';
-import { Spinner } from '../../Loading/Spinner';
-import { Toast } from '../../Toast/Toast';
+import { TeamProps } from '../../App';
+import { RankingSchema, TeamRankingSchema } from '../../common/types/RankingByTeam.type';
+import RankingsService from '../../services/rankings/RankingsService';
+import { Spinner } from '../Loading/Spinner';
+import { Toast } from '../Toast/Toast';
+
 
 export const RankingTable = (teamProps: TeamProps) => {
   const [isLoading, setLoading] = useState(true);
@@ -16,6 +17,9 @@ export const RankingTable = (teamProps: TeamProps) => {
         setRanking(ranking);
         setLoading(false);
       })
+      .catch(_ => {
+        setLoading(false);
+      })
 
     setTeamName(teamProps.teamName);
   }, []);
@@ -24,7 +28,7 @@ export const RankingTable = (teamProps: TeamProps) => {
     return (<Spinner text='Lade Tabelle ...' />);
   }
 
-  if(!ranking || ranking.teams.length === 0){
+  if(!ranking.teams || ranking.teams.length === 0){
     return (<Toast text='Für deine Mannschaft ist keine Tabelle vorhanden.'/>)
   }
 

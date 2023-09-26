@@ -3,8 +3,7 @@ import FetchUtil from '../../common/utils/fetch/FetchUtil'
 
 class ResultsService {
   fetchResults = async (teamId: number): Promise<ResultPerTeamSchema> => {
-    const results = await FetchUtil.fetchTableData<ResultPerTeamSchema>('results-service', teamId);
-    return results;
+    return await FetchUtil.fetchTableData<ResultPerTeamSchema>('results-service', teamId);
   }
 }
 

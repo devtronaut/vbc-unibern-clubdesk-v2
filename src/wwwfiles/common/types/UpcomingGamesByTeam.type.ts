@@ -18,6 +18,7 @@ export type UpcomingGamesSchema = {
   opponent: string,
   type: GameType,
   location: LocationSchema,
+  mode: string
 }
 
 export type UpcomingGamesPerTeamSchema = {

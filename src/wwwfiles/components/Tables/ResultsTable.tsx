@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { TeamProps } from '../../../App';
-import { ResultPerTeamSchema, ResultTeamSchema, ResultsSchema } from '../../../common/types/ResultsByTeam.type';
-import ResultsService from '../../../services/results/ResultsService';
-import DateTransformer from '../../../common/utils/transform/DateTransformer';
-import { Spinner } from '../../Loading/Spinner';
-import { Toast } from '../../Toast/Toast';
+import { TeamProps } from '../../App';
+import { ResultPerTeamSchema, ResultsSchema, ResultTeamSchema } from '../../common/types/ResultsByTeam.type';
+import DateTransformer from '../../common/utils/transform/DateTransformer';
+import ResultsService from '../../services/results/ResultsService';
+import { Spinner } from '../Loading/Spinner';
+import { Toast } from '../Toast/Toast';
+
 
 export const ResultsTable = (teamProps: TeamProps) => {
   const [isLoading, setLoading] = useState(true);
@@ -16,13 +17,16 @@ export const ResultsTable = (teamProps: TeamProps) => {
         setResults(results);
         setLoading(false);
       })
+      .catch(_ => {
+        setLoading(false);
+      })
   }, []);
 
   if (isLoading) {
     return (<Spinner text='Lade Resultate ...' />);
   }
 
-  if (!results || results.results.length === 0) {
+  if (!results.results || results.results.length === 0) {
     return (<Toast text='Für deine Mannschaft sind noch keine Resultate vorhanden.' />)
   }
 
