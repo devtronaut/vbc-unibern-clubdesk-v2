@@ -1,6 +1,6 @@
 class DateTransformer {
   transformDate = (utcString: string): [string, string, string] => {
-    const LOCALE = 'ch-DE';
+    const LOCALE = 'de-CH';
 
     const date = new Date(Date.parse(utcString));
     const longDate = date.toLocaleString(LOCALE, {
