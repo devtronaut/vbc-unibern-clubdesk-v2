@@ -37,7 +37,7 @@ export const RankingTable = (teamProps: TeamProps) => {
         <thead className='tw-sticky tw-top-0'>
           <tr className='tw-bg-col-table-header tw-text-white'>
             <th className='tw-text-center tw-py-1'>RANG</th>
-            <th className='tw-text-center tw-py-1'>TEAM</th>
+            <th className='tw-text-left tw-py-1'>TEAM</th>
             <th className='tw-text-center tw-py-1 phone:tw-hidden'>SIEGE</th>
             <th className='tw-text-center tw-py-1 phone:tw-hidden tw-overflow-hidden tw-text-ellipsis'>NIEDERLAGEN</th>
             <th className='tw-text-center tw-py-1'>PUNKTE</th>
