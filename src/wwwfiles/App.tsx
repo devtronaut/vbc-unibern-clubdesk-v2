@@ -11,8 +11,8 @@ export type TeamProps = {
 
 export const App = (teamProps: TeamProps) => {
   const [isRanking, setRanking] = useState(false);
-  const [isResults, setResults] = useState(true);
-  const [isUpcomingGames, setUpcomingGames] = useState(false);
+  const [isResults, setResults] = useState(false);
+  const [isUpcomingGames, setUpcomingGames] = useState(true);
 
   useEffect(() => { }, [isRanking, isResults, isUpcomingGames]);
 
@@ -43,7 +43,7 @@ export const App = (teamProps: TeamProps) => {
           {!isUpcomingGames && <TableSwitchButton text={'Nächste Spiele'} handler={upcomingGamesButtonClicked} />}
         </div>
 
-        <div className='tw-w-full tw-rounded-md tw-h-[550px] tw-overflow-y-auto'>
+        <div className='tw-w-full tw-rounded-md tw-max-h-[550px] tw-overflow-y-auto tw-shadow'>
           {isRanking && <RankingTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
           {isUpcomingGames && <UpcomingGamesTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
           {isResults && <ResultsTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
