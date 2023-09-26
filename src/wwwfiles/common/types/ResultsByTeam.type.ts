@@ -9,9 +9,10 @@ export type ResultsSchema = {
   teamId: number,
   gameId: number,
   dateUtc: string,
-  type: string,
   winner: ResultTeamSchema,
   loser: ResultTeamSchema,
+  league: string,
+  mode: string
 }
 
 export type ResultPerTeamSchema = {
