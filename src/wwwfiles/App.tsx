@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { RankingTable } from './components/Ranking/Tables/RankingTable'
+import { useEffect, useState } from 'react'
 import { TableSwitchButton } from './components/Controls/TableSwitchButton'
-import { UpcomingGamesTable } from './components/Ranking/Tables/UpcomingGamesTable'
-import { ResultsTable } from './components/Ranking/Tables/ResultsTable'
+import { RankingTable } from './components/Tables/RankingTable';
+import { UpcomingGamesTable } from './components/Tables/UpcomingGamesTable';
+import { ResultsTable } from './components/Tables/ResultsTable';
 
 export type TeamProps = {
   teamId: number,
@@ -10,9 +10,9 @@ export type TeamProps = {
 }
 
 export const App = (teamProps: TeamProps) => {
-  const [isRanking, setRanking] = useState(false);
+  const [isRanking, setRanking] = useState(true);
   const [isResults, setResults] = useState(false);
-  const [isUpcomingGames, setUpcomingGames] = useState(true);
+  const [isUpcomingGames, setUpcomingGames] = useState(false);
 
   useEffect(() => { }, [isRanking, isResults, isUpcomingGames]);
 

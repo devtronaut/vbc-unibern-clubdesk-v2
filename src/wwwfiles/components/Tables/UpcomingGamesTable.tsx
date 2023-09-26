@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { TeamProps } from '../../../App';
-import { LocationSchema, UpcomingGamesPerTeamSchema, UpcomingGamesSchema } from '../../../common/types/UpcomingGamesByTeam.type';
-import UpcomingGamesService from '../../../services/games/UpcomingGamesService';
-import DateTransformer from '../../../common/utils/transform/DateTransformer';
-import MapsLinkTransformer from '../../../common/utils/transform/MapsLinkTransformer';
-import { Spinner } from '../../Loading/Spinner';
-import { Toast } from '../../Toast/Toast';
+import { TeamProps } from '../../App';
+import { LocationSchema, UpcomingGamesPerTeamSchema, UpcomingGamesSchema } from '../../common/types/UpcomingGamesByTeam.type';
+import UpcomingGamesService from '../../services/games/UpcomingGamesService';
+import { Spinner } from '../Loading/Spinner';
+import { Toast } from '../Toast/Toast';
+import DateTransformer from '../../common/utils/transform/DateTransformer';
+import MapsLinkTransformer from '../../common/utils/transform/MapsLinkTransformer';
+
 
 export const UpcomingGamesTable = (teamProps: TeamProps) => {
   const [isLoading, setLoading] = useState(true);
@@ -17,13 +18,16 @@ export const UpcomingGamesTable = (teamProps: TeamProps) => {
         setGames(games);
         setLoading(false);
       })
+      .catch(_ => {
+        setLoading(false);
+      })
   }, []);
 
   if (isLoading) {
     return (<Spinner text='Lade nächste Spiele ...'/>);
   }
 
-  if (!games || games.upcomingGames.length === 0) {
+  if (!games.upcomingGames || games.upcomingGames.length === 0) {
     return (<Toast text='Für deine Mannschaft sind keine weiteren Spiele vorhanden.'/>)
   }
 
@@ -77,7 +81,10 @@ const TableRow = (props: UpcomingGamesSchema) => {
       </td>
       <td className='tw-text-center tw-py-1 tablet:tw-hidden'>{game.opponent}</td>
       <td className='tw-text-center tw-py-1 tw-hidden tablet:tw-table-cell tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis'>{game.opponent}</td>
-      <td className='tw-text-center tw-py-1 phone:tw-hidden'>{game.type}</td>
+      <td className='tw-text-center tw-py-1 phone:tw-hidden'>
+        {game.mode}<br />
+        {game.type} 
+      </td>
       <td className='tw-text-center tw-py-1 tablet:tw-hidden tw-whitespace-nowrap  tw-overflow-hidden tw-text-ellipsis'>
         {`${loc.caption} `}
         <a href={MapsLinkTransformer.transformPlusCode(loc.plusCode)}>

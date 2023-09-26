@@ -1,10 +1,9 @@
-import { RankingByTeamResponse, RankingSchema } from '../../common/types/RankingByTeam.type';
+import { RankingSchema } from '../../common/types/RankingByTeam.type';
 import FetchUtil from '../../common/utils/fetch/FetchUtil';
 
 class RankingsService {
   fetchRankings = async (teamId: number): Promise<RankingSchema> => {
-    const rankings = await FetchUtil.fetchTableData<RankingByTeamResponse>('rankings-service', teamId);
-    return rankings.message;
+    return await FetchUtil.fetchTableData<RankingSchema>('rankings-service', teamId);
   }
 }
 
