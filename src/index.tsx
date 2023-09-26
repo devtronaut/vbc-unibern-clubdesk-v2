@@ -1,4 +1,4 @@
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { App } from './wwwfiles/App';
 import './style.css';
 
@@ -7,4 +7,5 @@ const rootDiv = document.createElement('div');
 rootDiv.id = 'root';
 refNode?.before(rootDiv);
 
-render(<App teamId={window.teamId} teamName={window.teamName} />, document.getElementById('root'));
+const root = createRoot(rootDiv);
+root.render(<App teamId={window.teamId} teamName={window.teamName} />);
