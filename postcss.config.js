@@ -3,6 +3,9 @@ module.exports = {
   plugins: [
     'postcss-preset-env',
     tailwindcss,
-    require('tailwindcss/nesting')
+    require('tailwindcss/nesting'),
+    require('postcss-prefix-selector')({
+      prefix: '.tailwind-parent'
+    })
   ],
 };
