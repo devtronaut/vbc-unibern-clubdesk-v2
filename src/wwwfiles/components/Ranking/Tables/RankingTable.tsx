@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import RankingsService from '../../../services/rankings/RankingsService';
 import { RankingSchema, TeamRankingSchema } from '../../../common/types/RankingByTeam.type';
 import { TeamProps } from '../../../App';
+import { Spinner } from '../../Loading/Spinner';
+import { Toast } from '../../Toast/Toast';
 
 export const RankingTable = (teamProps: TeamProps) => {
   const [isLoading, setLoading] = useState(true);
@@ -19,11 +21,15 @@ export const RankingTable = (teamProps: TeamProps) => {
   }, []);
 
   if (isLoading) {
-    return (<div></div>);
+    return (<Spinner text='Lade Tabelle ...' />);
+  }
+
+  if(!ranking || ranking.teams.length === 0){
+    return (<Toast text='Für deine Mannschaft ist keine Tabelle vorhanden.'/>)
   }
 
   return (
-      <table className='tw-w-full tablet:tw-table-fixed phone:tw-table-auto tw-border-collapse'>
+    <table className='tw-w-full tablet:tw-table-fixed phone:tw-table-auto tw-border-collapse'>
         <thead className='tw-sticky tw-top-0'>
           <tr className='tw-bg-col-table-header tw-text-white'>
             <th className='tw-text-center tw-py-1'>RANG</th>
@@ -35,8 +41,8 @@ export const RankingTable = (teamProps: TeamProps) => {
         </thead>
         <tbody>
           {
-            ranking.teams.map((team: TeamRankingSchema) => {
-              return (<TableRow {...team} />)
+            ranking.teams.map((team: TeamRankingSchema, index: number) => {
+              return (<TableRow key={index} {...team} />)
             })
           }
         </tbody>

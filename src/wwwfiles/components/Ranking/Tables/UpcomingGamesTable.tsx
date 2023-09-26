@@ -4,6 +4,8 @@ import { LocationSchema, UpcomingGamesPerTeamSchema, UpcomingGamesSchema } from 
 import UpcomingGamesService from '../../../services/games/UpcomingGamesService';
 import DateTransformer from '../../../common/utils/transform/DateTransformer';
 import MapsLinkTransformer from '../../../common/utils/transform/MapsLinkTransformer';
+import { Spinner } from '../../Loading/Spinner';
+import { Toast } from '../../Toast/Toast';
 
 export const UpcomingGamesTable = (teamProps: TeamProps) => {
   const [isLoading, setLoading] = useState(true);
@@ -18,7 +20,11 @@ export const UpcomingGamesTable = (teamProps: TeamProps) => {
   }, []);
 
   if (isLoading) {
-    return <div></div>;
+    return (<Spinner text='Lade nächste Spiele ...'/>);
+  }
+
+  if (!games || games.upcomingGames.length === 0) {
+    return (<Toast text='Für deine Mannschaft sind keine weiteren Spiele vorhanden.'/>)
   }
 
   return (
@@ -33,8 +39,8 @@ export const UpcomingGamesTable = (teamProps: TeamProps) => {
       </thead>
       <tbody>
         {
-          games.upcomingGames.map((game: UpcomingGamesSchema) => {
-            return (<TableRow {...game} />);
+          games.upcomingGames.map((game: UpcomingGamesSchema, index: number) => {
+            return (<TableRow key={index} {...game} />);
           })
         }
       </tbody>
@@ -70,19 +76,25 @@ const TableRow = (props: UpcomingGamesSchema) => {
         {`${time} Uhr`}
       </td>
       <td className='tw-text-center tw-py-1 tablet:tw-hidden'>{game.opponent}</td>
-      <td className='tw-text-center tw-py-1 tw-hidden tablet:tw-table-cell tw-whitespace-nowrap  tw-overflow-hidden tw-text-ellipsis'>{game.opponent}</td>
+      <td className='tw-text-center tw-py-1 tw-hidden tablet:tw-table-cell tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis'>{game.opponent}</td>
       <td className='tw-text-center tw-py-1 phone:tw-hidden'>{game.type}</td>
       <td className='tw-text-center tw-py-1 tablet:tw-hidden tw-whitespace-nowrap  tw-overflow-hidden tw-text-ellipsis'>
         {`${loc.caption} `}
-        <a href={MapsLinkTransformer.transformPlusCode(loc.plusCode)} target='_blank' rel='noopener noreferrer'>
-          <i className="bi bi-pin-map-fill"></i>
+        <a href={MapsLinkTransformer.transformPlusCode(loc.plusCode)}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z" />
+            <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z" />
+          </svg>
         </a>
         <br />
         {`${loc.street} ${loc.number}, ${loc.zip} ${loc.city}`}
       </td>
       <td className='tw-text-center tw-py-1 tw-hidden tablet:tw-table-cell'>
-        <a href={MapsLinkTransformer.transformPlusCode(loc.plusCode)} target='_blank' rel='noopener noreferrer'>
-          <i className="bi bi-pin-map-fill"></i>
+        <a href={MapsLinkTransformer.transformPlusCode(loc.plusCode)}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z" />
+            <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z" />
+          </svg>
         </a>
       </td>
     </tr>
