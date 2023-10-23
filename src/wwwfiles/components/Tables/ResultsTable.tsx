@@ -71,10 +71,11 @@ const TableRow = (props: ResultsSchema & {maxPlayedSets: number}) => {
     setResult(props);
     setLoser(props.loser);
     setWinner(props.winner);
-    
+
     // Fill the sets array to the maximum number of sets played (to have an equal amount of cells in each row)
-    setWinnerSets(winnerSets.concat(new Array(setDifference).fill(null, 0, setDifference)));
-    setLoserSets(loserSets.concat(new Array(setDifference).fill(null, 0, setDifference)));
+    const fillArray = new Array(setDifference).fill(null, 0, setDifference);
+    setWinnerSets(winnerSets.concat(fillArray));
+    setLoserSets(loserSets.concat(fillArray));
 
     const [, short,] = DateTransformer.transformDate(props.dateUtc);
     setShortDate(short);
