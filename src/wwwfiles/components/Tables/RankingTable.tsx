@@ -63,7 +63,8 @@ const TableRow = (props: TeamRankingSchema) => {
   return (
     team.teamCaption?.includes(teamName) ?
       (
-        <tr className='tw-border-y-2 tw-font-bold even:tw-bg-slate-50 first:tw-border-t-0 last:tw-border-b-0 tw-bg-red-100 tw-duration-200 hover:tw-bg-red-200'>
+        // Row for own team (VBC Uni Bern or Volley Uni Bern)
+        <tr className='tw-border-y-2 tw-font-bold first:tw-border-t-0 last:tw-border-b-0 tw-bg-red-100 tw-duration-200 hover:tw-bg-red-200'>
           <td className='tw-text-center tw-py-2'><strong>{team.rank}</strong></td>
           <td className='tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis tw-py-2'><strong>{team.teamCaption}</strong></td>
           <td className='tw-text-center tw-py-2 phone:tw-hidden'><strong>{team.wins}</strong></td>
@@ -71,6 +72,7 @@ const TableRow = (props: TeamRankingSchema) => {
           <td className='tw-text-center tw-py-2'><strong>{team.points}</strong></td>
         </tr>
       ) : (
+        // Row for all other teams
         <tr className='tw-border-0 tw-border-y-2 tw-border-solid tw-border-slate-200 tw-duration-200 hover:tw-bg-slate-100 even:tw-bg-slate-50 first:tw-border-t-0 last:tw-border-b-0'>
           <td className='tw-text-center tw-py-2'>{team.rank}</td>
           <td className='tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis tw-py-1'>{team.teamCaption}</td>
