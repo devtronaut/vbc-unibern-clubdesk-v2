@@ -1,13 +1,10 @@
 import { TeamProps } from '../../App';
-import { RankingSchema, TeamRankingSchema } from '../../common/types/RankingByTeam.type';
+import { TeamRankingSchema } from '../../common/types/RankingByTeam.type';
 import { Spinner } from '../Loading/Spinner';
 import { Toast } from '../Toast/Toast';
-import { useTablesApi } from '../../common/hooks/useFetch';
+import { useRankingApi } from '../../common/hooks/useRankingsApi';
 
-const useRankingApi = (teamId: number): [boolean, RankingSchema, boolean] => {
-  const [loading, data, error] = useTablesApi<RankingSchema>('rankings-service', teamId);
-  return [loading, data, error];
-}
+
 
 export const RankingTable = ({teamId, teamName}: TeamProps) => {
   const [loading, ranking, error] = useRankingApi(teamId);

@@ -1,24 +1,12 @@
 import { TeamProps } from '../../App';
+import { useResultsApi } from '../../common/hooks/useResultsApi';
 import {
-  ResultPerTeamSchema,
   ResultsSchema,
   ResultTeamSchema,
 } from '../../common/types/ResultsByTeam.type';
 import DateTransformer from '../../common/utils/transform/DateTransformer';
 import { Spinner } from '../Loading/Spinner';
 import { Toast } from '../Toast/Toast';
-import { useTablesApi } from '../../common/hooks/useFetch';
-
-const useResultsApi = (
-  teamId: number
-): [boolean, ResultPerTeamSchema, boolean] => {
-  const [loading, data, error] = useTablesApi<ResultPerTeamSchema>(
-    'results-service',
-    teamId
-  );
-
-  return [loading, data, error];
-};
 
 export const ResultsTable = (teamProps: TeamProps) => {
   const [loading, results, error] = useResultsApi(
