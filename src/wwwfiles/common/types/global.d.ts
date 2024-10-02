@@ -3,4 +3,5 @@
 export declare global {
   var teamId: number
   var teamName: string
+  var referenceElement: string
 }
