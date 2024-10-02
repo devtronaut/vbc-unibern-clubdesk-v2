@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import { TeamProps } from '../../App';
 import { RankingSchema, TeamRankingSchema } from '../../common/types/RankingByTeam.type';
-import RankingsService from '../../services/rankings/RankingsService';
 import { Spinner } from '../Loading/Spinner';
 import { Toast } from '../Toast/Toast';
 import { useTablesApi } from '../../common/hooks/useFetch';
