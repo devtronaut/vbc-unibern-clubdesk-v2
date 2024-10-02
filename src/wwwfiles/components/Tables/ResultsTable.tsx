@@ -11,22 +11,17 @@ import { useTablesApi } from '../../common/hooks/useFetch';
 
 const useResultsApi = (
   teamId: number
-): [boolean, ResultPerTeamSchema, number, boolean] => {
+): [boolean, ResultPerTeamSchema, boolean] => {
   const [loading, data, error] = useTablesApi<ResultPerTeamSchema>(
     'results-service',
     teamId
   );
 
-  const maxSets =
-    loading || error
-      ? 0
-      : Math.max(...data.results.map((r) => r.winner.sets.length));
-
-  return [loading, data, maxSets, error];
+  return [loading, data, error];
 };
 
 export const ResultsTable = (teamProps: TeamProps) => {
-  const [loading, results, maxPlayedSets, error] = useResultsApi(
+  const [loading, results, error] = useResultsApi(
     teamProps.teamId
   );
 
@@ -46,6 +41,8 @@ export const ResultsTable = (teamProps: TeamProps) => {
       <Toast text="Für deine Mannschaft sind noch keine Resultate vorhanden." />
     );
   }
+
+  const maxPlayedSets = Math.max(...results.results.map((r) => r.winner.sets.length));
 
   return (
     <table className="tw-w-full tablet:tw-table-auto phone:tw-table-auto tw-border-collapse">
