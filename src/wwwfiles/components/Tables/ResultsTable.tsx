@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { TeamProps } from '../../App';
 import {
   ResultPerTeamSchema,
@@ -18,9 +17,10 @@ const useResultsApi = (
     teamId
   );
 
-  const maxSets = loading || error
-    ? 0
-    : Math.max(...data.results.map((r) => r.winner.sets.length));
+  const maxSets =
+    loading || error
+      ? 0
+      : Math.max(...data.results.map((r) => r.winner.sets.length));
 
   return [loading, data, maxSets, error];
 };
@@ -62,83 +62,136 @@ export const ResultsTable = (teamProps: TeamProps) => {
       </thead>
       {results.results.map((result: ResultsSchema, index: number) => {
         return (
-          <TableRow key={index} {...result} maxPlayedSets={maxPlayedSets} />
+          <ResultTableRow
+            key={index}
+            winner={result.winner}
+            loser={result.loser}
+            dateUtc={result.dateUtc}
+            mode={result.mode}
+            maxPlayedSets={maxPlayedSets}
+          />
         );
       })}
     </table>
   );
 };
 
-const TableRow = (props: ResultsSchema & { maxPlayedSets: number }) => {
-  const [result, setResult] = useState({} as ResultsSchema);
-  const [shortDate, setShortDate] = useState('');
-  const [loser, setLoser] = useState({} as ResultTeamSchema);
-  const [loserSets, setLoserSets] = useState([] as number[]);
-  const [winner, setWinner] = useState({} as ResultTeamSchema);
-  const [winnerSets, setWinnerSets] = useState([] as number[]);
+type TableRowProps = {
+  winner: ResultTeamSchema;
+  loser: ResultTeamSchema;
+  dateUtc: string;
+  mode: string;
+  maxPlayedSets: number;
+};
 
-  useEffect(() => {
-    const winnerSets = props.winner.sets;
-    const loserSets = props.loser.sets;
-    const setDifference = props.maxPlayedSets - winnerSets.length;
+// TODO Refactor that shit!!!
+const ResultTableRow = ({
+  winner,
+  loser,
+  dateUtc,
+  mode,
+  maxPlayedSets,
+}: TableRowProps) => {
+  const [, short] = DateTransformer.transformDate(dateUtc);
 
-    setResult(props);
-    setLoser(props.loser);
-    setWinner(props.winner);
+  // Fill the sets array to the maximum number of sets played (to have an equal amount of cells in each row)
+  const setDifference = maxPlayedSets - winner.sets.length;
+  const fillArray = new Array(setDifference).fill(null, 0, setDifference);
+  const winnerSets = winner.sets.concat(fillArray);
+  const loserSets = loser.sets.concat(fillArray);
 
-    // Fill the sets array to the maximum number of sets played (to have an equal amount of cells in each row)
-    const fillArray = new Array(setDifference).fill(null, 0, setDifference);
-    setWinnerSets(winnerSets.concat(fillArray));
-    setLoserSets(loserSets.concat(fillArray));
-
-    const [, short] = DateTransformer.transformDate(props.dateUtc);
-    setShortDate(short);
-  }, []);
+  const [winnerSetObjects, loserSetObjects] = getSetObjects(winnerSets, loserSets);
 
   return (
     <tbody className="even:tw-bg-slate-50 hover:tw-bg-slate-100">
       <tr>
         <td rowSpan={2} className="tw-text-center tw-py-1">
-          {shortDate}
+          {short}
         </td>
         <td rowSpan={2} className="tw-text-center tw-py-1 phone:tw-hidden">
-          {result.mode}
+          {mode}
         </td>
-        <td className="tw-text-center tw-pt-1 tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis">
-          <strong>{winner.caption}</strong>
-        </td>
-        <td className="tw-text-center tw-pt-1">
-          <strong>{winner.setsWon}</strong>
-        </td>
-        {winnerSets.map((set, index) => {
-          return (
-            <td className="tw-text-left tw-pt-1 phone:tw-hidden" key={index}>
-              {set > loser.sets[index] ? (
-                <strong>{set}</strong>
-              ) : (
-                <span className="tw-text-neutral-600">{set}</span>
-              )}
-            </td>
-          );
-        })}
+        <TeamResultRow
+          isWinner={true}
+          caption={winner.caption}
+          setsWon={winner.setsWon}
+          sets={winnerSetObjects}
+        />
       </tr>
       <tr className="tw-border-0 tw-border-b-2 tw-border-solid tw-border-slate-200 hover:tw-bg-slate-100">
-        <td className="tw-text-center tw-pb-1 tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis">
-          {loser.caption}
-        </td>
-        <td className="tw-text-center tw-pb-1">{loser.setsWon}</td>
-        {loserSets.map((set, index) => {
-          return (
-            <td className="tw-text-left tw-pt-1 phone:tw-hidden" key={index}>
-              {set > winner.sets[index] ? (
-                <strong>{set}</strong>
-              ) : (
-                <span className="tw-text-neutral-600">{set}</span>
-              )}
-            </td>
-          );
-        })}
+        <TeamResultRow
+          isWinner={false}
+          caption={loser.caption}
+          setsWon={loser.setsWon}
+          sets={loserSetObjects}
+        />
       </tr>
     </tbody>
   );
+};
+
+type Set = {
+  points: number;
+  won: boolean;
+};
+
+type TeamResultRowProps = {
+  isWinner: boolean,
+  caption: string,
+  setsWon: number,
+  sets: Set[]
+}
+
+const TeamResultRow = ({
+  isWinner,
+  caption,
+  setsWon,
+  sets,
+}: TeamResultRowProps) => {
+  return (
+    <>
+      <td className="tw-text-center tw-pt-1 tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis">
+        {isWinner ? <strong>{caption}</strong> : caption}
+      </td>
+      <td className="tw-text-center tw-pt-1">
+        {isWinner ? <strong>{setsWon}</strong> : setsWon}
+      </td>
+      {sets.map((set, index) => {
+        return (
+          <td className="tw-text-left tw-pt-1 phone:tw-hidden" key={index}>
+            {set.won ? (
+              <strong>{set.points}</strong>
+            ) : (
+              <span className="tw-text-neutral-600">{set.points}</span>
+            )}
+          </td>
+        );
+      })}
+    </>
+  );
+};
+
+const getSetObjects = (
+  winnerSets: number[],
+  loserSets: number[]
+): [Set[], Set[]] => {
+  const winnerSetObjects: Set[] = [];
+  const loserSetObjects: Set[] = [];
+
+  winnerSets.forEach((winnerPoints, idx) => {
+    const loserPoints = loserSets[idx];
+    const winnerWonSet = winnerPoints > loserPoints;
+
+    winnerSetObjects.push({
+      points: winnerPoints,
+      won: winnerWonSet,
+    });
+
+    loserSetObjects.push({
+      points: loserPoints,
+      won: !winnerWonSet,
+    });
+  });
+
+  return [winnerSetObjects, loserSetObjects];
 };
