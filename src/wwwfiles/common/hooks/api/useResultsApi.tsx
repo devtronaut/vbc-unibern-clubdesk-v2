@@ -1,4 +1,4 @@
-import { ResultPerTeamSchema } from '../types/ResultsByTeam.type';
+import { ResultPerTeamSchema } from '../../types/ResultsByTeam.type';
 import { useTablesApi } from './useFetch';
 
 export const useResultsApi = (

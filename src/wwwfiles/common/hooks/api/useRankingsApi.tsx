@@ -1,4 +1,4 @@
-import { RankingSchema } from '../types/RankingByTeam.type';
+import { RankingSchema } from '../../types/RankingByTeam.type';
 import { useTablesApi } from './useFetch';
 
 export const useRankingApi = (teamId: number): [boolean, RankingSchema, boolean] => {

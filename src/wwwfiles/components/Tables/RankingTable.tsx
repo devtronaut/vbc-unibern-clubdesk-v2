@@ -2,9 +2,7 @@ import { TeamProps } from '../../App';
 import { TeamRankingSchema } from '../../common/types/RankingByTeam.type';
 import { Spinner } from '../Loading/Spinner';
 import { Toast } from '../Toast/Toast';
-import { useRankingApi } from '../../common/hooks/useRankingsApi';
-
-
+import { useRankingApi } from '../../common/hooks/api/useRankingsApi';
 
 export const RankingTable = ({teamId, teamName}: TeamProps) => {
   const [loading, ranking, error] = useRankingApi(teamId);

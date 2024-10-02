@@ -2,13 +2,13 @@ import { TeamProps } from '../../App';
 import { LocationSchema, UpcomingGamesSchema } from '../../common/types/UpcomingGamesByTeam.type';
 import { Spinner } from '../Loading/Spinner';
 import { Toast } from '../Toast/Toast';
-import DateTransformer from '../../common/utils/transform/DateTransformer';
-import MapsLinkTransformer from '../../common/utils/transform/MapsLinkTransformer';
 import { GameType } from '../../common/enums/GameType.enum';
-import { useUpcomingGamesApi } from '../../common/hooks/useUpcomingGamesApi';
+import { useUpcomingGamesApi } from '../../common/hooks/api/useUpcomingGamesApi';
+import { useDateTransformer } from '../../common/hooks/transformers/useDateTransformer';
+import { useMapsLinkTransformer } from '../../common/hooks/transformers/useMapsLinkTransformer';
 
-export const UpcomingGamesTable = (teamProps: TeamProps) => {
-  const [loading, games, error] = useUpcomingGamesApi(teamProps.teamId);
+export const UpcomingGamesTable = ({teamId}: TeamProps) => {
+  const [loading, games, error] = useUpcomingGamesApi(teamId);
   
   if (error) {
     console.error('Error while fetching upcoming games.');
@@ -68,7 +68,7 @@ const GamesTableRow = ({
   location,
   dateUtc,
 }: GamesTableRowProps) => {
-  const [long, short, time] = DateTransformer.transformDate(dateUtc);
+  const [long, short, time] = useDateTransformer(dateUtc);
 
   return (
     <tr className="tw-border-0 tw-border-y-2 tw-border-solid tw-border-slate-200 tw-duration-200 hover:tw-bg-slate-100 even:tw-bg-slate-50 first:tw-border-t-0 last:tw-border-b-0">
@@ -109,8 +109,10 @@ type PinLinkProps = {
 }
 
 const PinLink = ({plusCode}: PinLinkProps) => {
+  const mapsLink = useMapsLinkTransformer(plusCode);
+
   return (
-    <a href={MapsLinkTransformer.transformPlusCode(plusCode)}>
+    <a href={mapsLink}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

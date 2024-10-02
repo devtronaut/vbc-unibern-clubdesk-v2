@@ -1,16 +1,16 @@
 import { TeamProps } from '../../App';
-import { useResultsApi } from '../../common/hooks/useResultsApi';
+import { useDateTransformer } from '../../common/hooks/transformers/useDateTransformer';
+import { useResultsApi } from '../../common/hooks/api/useResultsApi';
 import {
   ResultsSchema,
   ResultTeamSchema,
 } from '../../common/types/ResultsByTeam.type';
-import DateTransformer from '../../common/utils/transform/DateTransformer';
 import { Spinner } from '../Loading/Spinner';
 import { Toast } from '../Toast/Toast';
 
-export const ResultsTable = (teamProps: TeamProps) => {
+export const ResultsTable = ({teamId}: TeamProps) => {
   const [loading, results, error] = useResultsApi(
-    teamProps.teamId
+    teamId
   );
 
   if (error) {
@@ -69,7 +69,6 @@ type TableRowProps = {
   maxPlayedSets: number;
 };
 
-// TODO Refactor that shit!!!
 const ResultTableRow = ({
   winner,
   loser,
@@ -77,7 +76,7 @@ const ResultTableRow = ({
   mode,
   maxPlayedSets,
 }: TableRowProps) => {
-  const [, short] = DateTransformer.transformDate(dateUtc);
+  const [, short, ] = useDateTransformer(dateUtc);
 
   // Fill the sets array to the maximum number of sets played (to have an equal amount of cells in each row)
   const setDifference = maxPlayedSets - winner.sets.length;

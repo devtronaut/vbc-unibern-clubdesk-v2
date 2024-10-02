@@ -1,4 +1,4 @@
-import { UpcomingGamesPerTeamSchema } from '../types/UpcomingGamesByTeam.type';
+import { UpcomingGamesPerTeamSchema } from '../../types/UpcomingGamesByTeam.type';
 import { useTablesApi } from './useFetch';
 
 export const useUpcomingGamesApi = (
