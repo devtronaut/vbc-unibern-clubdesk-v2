@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { App } from './wwwfiles/App';
 import './style.css';
 
-const refNode = document.querySelector('.cd-group-contact-list');
+const refNode = document.querySelector(window.referenceElement ?? '.cd-group-contact-list');
 const rootDiv = document.createElement('div');
 rootDiv.id = 'root';
 refNode?.before(rootDiv);
