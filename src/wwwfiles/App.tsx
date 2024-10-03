@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TableSwitchButton } from './components/Controls/TableSwitchButton'
 import { RankingTable } from './components/Tables/RankingTable';
 import { UpcomingGamesTable } from './components/Tables/UpcomingGamesTable';
@@ -9,12 +9,10 @@ export type TeamProps = {
   teamName: string,
 }
 
-export const App = (teamProps: TeamProps) => {
+export const App = ({teamId, teamName}: TeamProps) => {
   const [isRanking, setRanking] = useState(true);
   const [isResults, setResults] = useState(false);
   const [isUpcomingGames, setUpcomingGames] = useState(false);
-
-  useEffect(() => { }, [isRanking, isResults, isUpcomingGames]);
 
   const rankingButtonClicked = () => {
     setRanking(true);
@@ -35,7 +33,7 @@ export const App = (teamProps: TeamProps) => {
   }
 
   return (
-    <div className='tailwind-parent'>
+    <div className='tw-parent'>
       <div className='tw-w-full tw-flext tw-flex-col tw-items-center tw-my-8'>
         <div className='tw-mb-3 tw-w-fit tw-space-x-2'>
           {!isRanking && <TableSwitchButton text={'Tabelle'} handler={rankingButtonClicked} />}
@@ -44,9 +42,9 @@ export const App = (teamProps: TeamProps) => {
         </div>
 
         <div className='tw-w-full tw-rounded-md tw-max-h-[550px] tw-overflow-y-auto tw-shadow'>
-          {isRanking && <RankingTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
-          {isUpcomingGames && <UpcomingGamesTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
-          {isResults && <ResultsTable teamId={teamProps.teamId} teamName={teamProps.teamName} />}
+          {isRanking && <RankingTable teamId={teamId} teamName={teamName} />}
+          {isUpcomingGames && <UpcomingGamesTable teamId={teamId} teamName={teamName} />}
+          {isResults && <ResultsTable teamId={teamId} teamName={teamName} />}
         </div>
       </div>
     </div>
