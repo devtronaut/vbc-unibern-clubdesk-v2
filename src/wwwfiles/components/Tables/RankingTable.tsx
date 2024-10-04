@@ -62,24 +62,42 @@ const RankingTableRow = ({
     <tr
       className={`tw-border-0 tw-border-y-2 tw-border-solid tw-border-slate-200 tw-duration-200 first:tw-border-t-0 last:tw-border-b-0 ${
         isHomeTeam
-          ? 'tw-bg-red-100 tw-duration-200 hover:tw-bg-red-200 tw-font-bold'
+          ? 'tw-bg-red-100 tw-duration-200 hover:tw-bg-red-200'
           : 'hover:tw-bg-slate-100 even:tw-bg-slate-50'
       }`}
     >
-      <td className={`tw-text-center tw-py-2`}>{team.rank}</td>
+      <td className={`tw-text-center tw-py-2`}>
+        <TextContent text={team.rank} bold={isHomeTeam} />
+      </td>
       <td
         className={`tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis tw-py-1`}
       >
-        <div className='tw-h-8 tw-flex tw-flex-row tw-items-center tw-gap-2'>
+        <div className="tw-h-8 tw-flex tw-flex-row tw-items-center tw-gap-2">
           <TeamLogo src={team.teamLogoUrl} />
-        {team.teamCaption}
+          <TextContent text={team.teamCaption} bold={isHomeTeam} />
         </div>
       </td>
-      <td className={`tw-text-center tw-py-2 phone:tw-hidden`}>{team.wins}</td>
       <td className={`tw-text-center tw-py-2 phone:tw-hidden`}>
-        {team.defeats}
+        <TextContent text={team.wins} bold={isHomeTeam} />
       </td>
-      <td className={`tw-text-center tw-py-2`}>{team.points}</td>
+      <td className={`tw-text-center tw-py-2 phone:tw-hidden`}>
+        <TextContent text={team.defeats} bold={isHomeTeam} />
+      </td>
+      <td className={`tw-text-center tw-py-2`}>
+        <TextContent text={team.points} bold={isHomeTeam} />
+      </td>
     </tr>
   );
 };
+
+type TextContentProps = {
+  text: string | number,
+  bold?: boolean
+}
+
+// Component to work around unreliable font settings
+const TextContent = ({text, bold = false}: TextContentProps) => {
+  return (
+    bold ? (<strong>{text}</strong>) : (<>{text}</>)
+  )
+}
