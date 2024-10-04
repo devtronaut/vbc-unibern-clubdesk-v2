@@ -3,7 +3,6 @@ import { TeamRankingSchema } from '../../common/types/RankingByTeam.type';
 import { Spinner } from '../Loading/Spinner';
 import { Toast } from '../Toast/Toast';
 import { useRankingApi } from '../../common/hooks/api/useRankingsApi';
-import { VolleyballIcon } from '../Logo/VolleyballIcon';
 import { TeamLogo } from '../Logo/TeamLogo';
 
 export const RankingTable = ({ teamId, teamName }: TeamProps) => {
@@ -26,13 +25,13 @@ export const RankingTable = ({ teamId, teamName }: TeamProps) => {
     <table className="tw-w-full tablet:tw-table-fixed phone:tw-table-auto tw-border-collapse">
       <thead className="tw-sticky tw-top-0">
         <tr className="tw-bg-col-gray tw-text-white">
-          <th className="tw-text-center tw-py-1">RANG</th>
+          <th className="tw-text-center tw-py-1 phone:tw-w-20">RANG</th>
           <th className="tw-text-left tw-py-1">TEAM</th>
           <th className="tw-text-center tw-py-1 phone:tw-hidden">SIEGE</th>
           <th className="tw-text-center tw-py-1 phone:tw-hidden tw-overflow-hidden tw-text-ellipsis">
             NIEDERLAGEN
           </th>
-          <th className="tw-text-center tw-py-1">PUNKTE</th>
+          <th className="tw-text-center tw-py-1 phone:tw-w-24">PUNKTE</th>
         </tr>
       </thead>
       <tbody>
