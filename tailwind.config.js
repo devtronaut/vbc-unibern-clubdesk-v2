@@ -13,8 +13,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        'col-table-header': 'rgba(51,51,51,1.0)',
-        'col-table-header-trans': 'rgba(122,122,122,1.0)',
+        'col-gray': 'rgba(51,51,51,1.0)',
+        'col-gray-light': 'rgba(122,122,122,1.0)',
         'col-button': 'rgba(255,0,0,1.0)',
       },
       boxShadow: {

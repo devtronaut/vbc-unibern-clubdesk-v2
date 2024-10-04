@@ -23,7 +23,7 @@ export const RankingTable = ({teamId, teamName}: TeamProps) => {
   return (
     <table className='tw-w-full tablet:tw-table-fixed phone:tw-table-auto tw-border-collapse'>
         <thead className='tw-sticky tw-top-0'>
-          <tr className='tw-bg-col-table-header tw-text-white'>
+          <tr className='tw-bg-col-gray tw-text-white'>
             <th className='tw-text-center tw-py-1'>RANG</th>
             <th className='tw-text-left tw-py-1'>TEAM</th>
             <th className='tw-text-center tw-py-1 phone:tw-hidden'>SIEGE</th>
