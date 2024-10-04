@@ -1,4 +1,4 @@
-import { VolleyballIcon } from './VolleyballIcon';
+import { VolleyballIcon } from '../Icons/VolleyballIcon';
 
 type TeamLogoProps = {
   src?: string;
