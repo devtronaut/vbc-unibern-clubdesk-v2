@@ -120,9 +120,9 @@ const GamesTableRow = ({
           {location.caption}
         </a>
         <div className="tw-text-balance tw-mt-1 tablet:tw-hidden tw-block">
-          <div className="tw-whitespace-nowrap">{`${location.zip} ${location.city}`}</div>
+          <div className="tw-whitespace-nowrap tw-text-center">{`${location.zip} ${location.city}`}</div>
         </div>
-        <div className="tw-h-8 tablet:tw-block tw-hidden">
+        <div className="tw-h-8 tw-hidden tablet:tw-flex tw-flex-row tw-justify-around">
           <PinLink mapsLink={mapsLink} />
         </div>
       </td>
