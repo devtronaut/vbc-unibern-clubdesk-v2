@@ -35,7 +35,7 @@ export const ResultsTable = ({teamId}: TeamProps) => {
   return (
     <table className="tw-w-full tablet:tw-table-auto phone:tw-table-auto tw-border-collapse">
       <thead className="tw-sticky tw-top-0">
-        <tr className="tw-bg-col-table-header tw-text-white">
+        <tr className="tw-bg-col-gray tw-text-white">
           <th className="tw-text-center tw-py-1">DATUM</th>
           <th className="tw-text-center tw-py-1 phone:tw-hidden">MODUS</th>
           <th className="tw-text-center tw-py-1">TEAMS</th>

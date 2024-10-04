@@ -28,7 +28,7 @@ export const UpcomingGamesTable = ({teamId}: TeamProps) => {
   return (
     <table className="tw-w-full tablet:tw-table-fixed phone:tw-table-auto tw-border-collapse">
       <thead className="tw-sticky tw-top-0">
-        <tr className="tw-bg-col-table-header tw-text-white">
+        <tr className="tw-bg-col-gray tw-text-white">
           <GamesTableHeader text="DATUM" />
           <GamesTableHeader text="GEGNER" />
           <GamesTableHeader text="TYP" mobileHidden={true} />
