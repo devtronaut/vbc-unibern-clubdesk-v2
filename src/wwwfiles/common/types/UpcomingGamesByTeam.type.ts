@@ -16,6 +16,7 @@ export type UpcomingGamesSchema = {
   dateUtc: string,
   league: string,
   opponent: string,
+  opponentLogoUrl: string,
   type: GameType,
   location: LocationSchema,
   mode: string
