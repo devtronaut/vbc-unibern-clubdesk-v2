@@ -35,13 +35,13 @@ export const App = ({teamId, teamName}: TeamProps) => {
   return (
     <div className='tw-parent'>
       <div className='tw-w-full tw-flext tw-flex-col tw-items-center tw-my-8'>
-        <div className='tw-mb-3 tw-w-fit tw-space-x-2'>
-          {!isRanking && <TableSwitchButton text={'Tabelle'} handler={rankingButtonClicked} />}
-          {!isResults && <TableSwitchButton text={'Resultate'} handler={resultsButtonClicked} />}
-          {!isUpcomingGames && <TableSwitchButton text={'Nächste Spiele'} handler={upcomingGamesButtonClicked} />}
+        <div className='tw-w-full tw-overflow-clip'>
+          <TableSwitchButton text={'Tabelle'} handler={rankingButtonClicked} isActive={isRanking}/>
+          <TableSwitchButton text={'Resultate'} handler={resultsButtonClicked} isActive={isResults}/>
+          <TableSwitchButton text={'Nächste Spiele'} handler={upcomingGamesButtonClicked} isActive={isUpcomingGames}/>
         </div>
 
-        <div className='tw-w-full tw-rounded-md tw-max-h-[550px] tw-overflow-y-auto tw-shadow'>
+        <div className='tw-w-full tw-rounded-md tw-rounded-tl-none tw-max-h-[550px] tw-overflow-y-auto tw-shadow'>
           {isRanking && <RankingTable teamId={teamId} teamName={teamName} />}
           {isUpcomingGames && <UpcomingGamesTable teamId={teamId} teamName={teamName} />}
           {isResults && <ResultsTable teamId={teamId} teamName={teamName} />}

@@ -8,21 +8,26 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     screens: {
-      'phone': {'max': '550px'},
-      'tablet': {'max': '680px'},
+      phone: { max: '550px' },
+      tablet: { max: '680px' },
     },
     extend: {
       colors: {
         'col-table-header': 'rgba(51,51,51,1.0)',
-        'col-button': 'rgba(255,0,0,1.0)'
-      }
+        'col-table-header-trans': 'rgba(122,122,122,1.0)',
+        'col-button': 'rgba(255,0,0,1.0)',
+      },
+      boxShadow: {
+        roundedTabRightActive: '0 10px 0 0 rgba(51,51,51,1.0)',
+        roundedTabRightPassive: '0 10px 0 0 rgba(122,122,122,1.0)',
+        roundedTabLeftActive: '0 10px 0 0 rgba(51,51,51,1.0)',
+        roundedTabLeftPassive: '0 10px 0 0 rgba(122,122,122,1.0)',
+      },
     },
   },
   variants: {
-    extend: {
-
-    },
+    extend: {},
   },
   plugins: [],
-}
+};
 
