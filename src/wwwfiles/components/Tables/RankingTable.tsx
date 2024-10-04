@@ -68,10 +68,12 @@ const RankingTableRow = ({
     >
       <td className={`tw-text-center tw-py-2`}>{team.rank}</td>
       <td
-        className={`tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis tw-py-1 tw-h-8 tw-flex tw-flex-row tw-items-center tw-gap-2`}
+        className={`tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis tw-py-1`}
       >
-        <TeamLogo src={team.teamLogoUrl} />
+        <div className='tw-h-8 tw-flex tw-flex-row tw-items-center tw-gap-2'>
+          <TeamLogo src={team.teamLogoUrl} />
         {team.teamCaption}
+        </div>
       </td>
       <td className={`tw-text-center tw-py-2 phone:tw-hidden`}>{team.wins}</td>
       <td className={`tw-text-center tw-py-2 phone:tw-hidden`}>
