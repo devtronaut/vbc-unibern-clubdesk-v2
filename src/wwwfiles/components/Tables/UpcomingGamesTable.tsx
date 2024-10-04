@@ -10,6 +10,7 @@ import { useUpcomingGamesApi } from '../../common/hooks/api/useUpcomingGamesApi'
 import { useDateTransformer } from '../../common/hooks/transformers/useDateTransformer';
 import { useMapsLinkTransformer } from '../../common/hooks/transformers/useMapsLinkTransformer';
 import { TeamLogo } from '../Logo/TeamLogo';
+import { GoogleMapsIcon } from '../Icons/GoogleMapsIcon';
 
 export const UpcomingGamesTable = ({ teamId }: TeamProps) => {
   const [loading, games, error] = useUpcomingGamesApi(teamId);
@@ -37,9 +38,15 @@ export const UpcomingGamesTable = ({ teamId }: TeamProps) => {
             text="DATUM"
             styles="phone:tw-w-24 tw-text-center"
           />
-          <GamesTableHeader text="GEGNER" styles="tablet:tw-text-center tw-text-left" />
-          <GamesTableHeader text="TYP" styles='tablet:tw-hidden tw-text-center'/>
-          <GamesTableHeader text="ORT" styles="phone:tw-w-20 tw-text-center" />
+          <GamesTableHeader
+            text="GEGNER"
+            styles="phone:tw-text-center tw-text-left"
+          />
+          <GamesTableHeader
+            text="TYP"
+            styles="tablet:tw-hidden tw-text-center"
+          />
+          <GamesTableHeader text="ORT" styles="phone:tw-w-16 tw-text-center" />
         </tr>
       </thead>
       <tbody>
@@ -53,20 +60,11 @@ export const UpcomingGamesTable = ({ teamId }: TeamProps) => {
 
 type GamesTableHeaderProps = {
   text: string;
-  styles?: string
+  styles?: string;
 };
 
-const GamesTableHeader = ({
-  text,
-  styles
-}: GamesTableHeaderProps) => {
-  return (
-    <th
-      className={` tw-py-1 ${styles ?? ''}`}
-    >
-      {text}
-    </th>
-  );
+const GamesTableHeader = ({ text, styles }: GamesTableHeaderProps) => {
+  return <th className={` tw-py-1 ${styles ?? ''}`}>{text}</th>;
 };
 
 type GamesTableRowProps = {
@@ -101,7 +99,7 @@ const GamesTableRow = ({
         {`${time} Uhr`}
       </td>
       <td className="tw-text-center tw-py-1 tw-whitespace-nowrap tw-overflow-hidden tw-text-ellipsis">
-        <div className="tablet:tw-h-12 tw-h-8 tw-flex tablet:tw-flex-col tw-flex-row tw-items-center phone:tw-gap-0 tw-gap-2">
+        <div className="tablet:tw-h-12 tw-h-8 tw-flex phone:tw-flex-col tw-flex-row tw-items-center phone:tw-gap-0 tw-gap-2">
           <div className="tablet:tw-h-[50%] tw-h-full">
             <TeamLogo src={opponentLogoUrl} />
           </div>
@@ -113,14 +111,20 @@ const GamesTableRow = ({
         <br />
         {type}
       </td>
-      <td className="tw-text-center tw-py-1 tablet:tw-hidden tw-whitespace-nowrap  tw-overflow-hidden tw-text-ellipsis">
-        <a>{location.caption}</a>
-        <PinLink mapsLink={mapsLink} />
-        <br />
-        <span className="tw-text-balance">{`${location.street} ${location.number}, ${location.zip} ${location.city}`}</span>
-      </td>
-      <td className="tw-text-center tw-py-1 tw-hidden tablet:tw-table-cell">
-        <PinLink mapsLink={mapsLink} />
+      <td className="tw-text-center tw-align-middle tw-py-1 tw-text-ellipsis">
+        <a
+          href={mapsLink}
+          target="_blank"
+          className="tablet:tw-hidden tw-inline"
+        >
+          {location.caption}
+        </a>
+        <div className="tw-text-balance tw-mt-1 tablet:tw-hidden tw-block">
+          <div className="tw-whitespace-nowrap">{`${location.zip} ${location.city}`}</div>
+        </div>
+        <div className="tw-h-8 tablet:tw-block tw-hidden">
+          <PinLink mapsLink={mapsLink} />
+        </div>
       </td>
     </tr>
   );
@@ -131,26 +135,9 @@ type PinLinkProps = {
 };
 
 const PinLink = ({ mapsLink }: PinLinkProps) => {
-
   return (
-    <a href={mapsLink}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        className="bi bi-pin-map-fill"
-        viewBox="0 0 16 16"
-      >
-        <path
-          fillRule="evenodd"
-          d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"
-        />
-        <path
-          fillRule="evenodd"
-          d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"
-        />
-      </svg>
+    <a href={mapsLink} target="_blank" className="tw-h-8">
+      <GoogleMapsIcon />
     </a>
   );
 };

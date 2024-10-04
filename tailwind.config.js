@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     screens: {
       phone: { max: '550px' },
-      tablet: { max: '680px' },
+      tablet: { max: '700px' },
     },
     extend: {
       colors: {
