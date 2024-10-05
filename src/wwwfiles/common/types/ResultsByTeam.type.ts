@@ -1,5 +1,6 @@
 export type ResultTeamSchema = {
   caption: string,
+  logoUrl: string,
   setsWon: number,
   sets: number[]
 }
