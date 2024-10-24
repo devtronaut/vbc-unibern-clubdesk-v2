@@ -6,11 +6,11 @@ type TeamLogoProps = {
 
 export const TeamLogo = ({ src }: TeamLogoProps) => {
   return (
-    <div className="tw-h-full tw-w-fit tw-min-w-fit">
+    <div className="tw-h-full">
       {src ? (
         <img
           src={src}
-          className="tw-h-full tw-w-fit tw-min-w-fit tw-min-h-full tw-rounded-full"
+          className="tw-h-full tw-rounded-full"
         />
       ) : (
         <VolleyballIcon />
